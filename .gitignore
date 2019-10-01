@@ -1,6 +1,7 @@
 # 401 JS
 aws.yml
 build/
+.db
 db
 .env
 temp
