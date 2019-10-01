@@ -1,6 +1,6 @@
 // const server = require('../src/routes/api/pokemon.js')
-const server = require('../src/server');
-const request = require('supertest');
+// const server = require('../src/server');
+// const request = require('supertest');
 
 
 
