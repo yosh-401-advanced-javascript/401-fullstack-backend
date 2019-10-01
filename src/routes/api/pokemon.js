@@ -7,7 +7,7 @@ const superagent = require('superagent');
 // const POKEMON_API = 'https://pokeapi.co/api/v2/';
 
 router.get('/pokemon', (request, response) => {
-  superagent.get('https://pokeapi.co/api/v2/pokemon/charmander')
+  superagent.get('https://pokeapi.co/api/v2/pokemon/1')
     .then(result => {
       let pokeString = JSON.stringify(result.body);
       response.send(pokeString);
