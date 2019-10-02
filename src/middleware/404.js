@@ -1,6 +1,7 @@
 'use strict';
 
-module.exports = (req,res,next) => {
-  let error = { error: 'Resource Not Found' };
-  res.status(404).json(error);
+module.exports = (request, response, next) => {
+  response.status(404);
+  response.statusMessage = 'Resource Not Found';
+  response.json({ error: 'Not Found' });
 };
