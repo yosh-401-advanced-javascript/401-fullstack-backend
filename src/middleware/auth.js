@@ -8,7 +8,8 @@ module.exports = (capabilitiy) => {
   return (request, response, next) => {
 
     try {
-      let [authType, authString] = require.headers.authorization.split(/\s+/);
+      let [authType, authString] = request.headers.authorization.split(/\s+/);
+
       switch(authType.toLowerCase()){
       case 'basic':
         return _authBasic(authString);
@@ -28,7 +29,7 @@ module.exports = (capabilitiy) => {
       let auth = { username, password };
 
       return User.authenticateBasic(auth)
-        .then(user => _authBasic(user))
+        .then(user => _authenticate(user))
         .catch(_authError);
     }
 

@@ -12,8 +12,6 @@ const notFound = require('./middleware/404');
 
 
 const authRouter = require('./routes/auth');
-
-
 const pokemonRoutes = require('./routes/api/pokemon');
 
 app.use(cors());

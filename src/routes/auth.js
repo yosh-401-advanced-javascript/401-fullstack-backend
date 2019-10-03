@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 const User = require('../models/user/schema');
-const auth = require('../middleware/404');
+const auth = require('../middleware/auth');
 
 router.post('/signup',(request, response, next) => {
   let user = new User(request.body);
@@ -19,7 +19,7 @@ router.post('/signup',(request, response, next) => {
     .catch(next);
 });
 
-router.post('/signin', auth, (request, response, next) => {
+router.post('/signin', auth(), (request, response, next) => {
   response.set('token', request.token);
   response.cookie('auth', request.token);
   response.send(request.token);

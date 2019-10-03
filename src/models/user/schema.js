@@ -47,8 +47,13 @@ user.methods.generateToken = function (type) {
   return jwt.sign(token, SECRET);
 };
 
+user.methods.comparePassword = function (password) {
+  return bcrypt.compare(password, this.password)
+    .then(valid => valid ? this : null);
+};
+
 user.methods.can = function (capability) {
   return capabilities[this.role].includes(capability);
 };
 
-module.exports = mongoose.model('User', user);
+module.exports = mongoose.model('user', user);
