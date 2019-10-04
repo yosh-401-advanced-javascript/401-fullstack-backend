@@ -16,7 +16,6 @@ const capabilities = {
   user: ['create', 'read', 'update'],
 };
 
-//prehooks, is there any considerations we when making changes?
 user.pre('save', async function () {
   if (this.isModified('password')) {
     this.password = await bcrypt.hash(this.password, 10);

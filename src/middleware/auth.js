@@ -24,8 +24,8 @@ module.exports = (capabilitiy) => {
 
     function _authBasic(str) {
       let base64Buffer = Buffer.from(str, 'base64');
-      let buferString = base64Buffer.toString();
-      let [username, password] = buferString.split(':');
+      let bufferString = base64Buffer.toString();
+      let [username, password] = bufferString.split(':');
       let auth = { username, password };
 
       return User.authenticateBasic(auth)

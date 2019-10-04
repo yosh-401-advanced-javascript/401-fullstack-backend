@@ -11,29 +11,8 @@ router.get('/pokemon/:pokemonID', (request, response) => {
   superagent.get(`https://pokeapi.co/api/v2/pokemon/${pokemonID}`)
     .then(result => {
       let pokeData = result.body;
-          pokeData.forms[0].name;
-
-
-      //Parse data as JSON into pokeData
-
-      //Traverse PokeData object and construct new Pokemon Object to
-      //be sent out as response to this end point (delivered to Pokemon Class DB Constructor)
-      // console.log('POKEDATA', pokeData);
-      // response(result.body);
-      // const keys = Object.keys(result.body);
-
-      // let newPokemon = {
-      //   name: pokeData.name,
-      //
-      // };
-
-      // console.log('POKEMON RESULTS:', result.text);
-
-      // keys.forEach(
-      // );
-
+      pokeData.forms[0].name;
       response.json(pokeData);
-      // console.log('POKEMON BODY',result.body);
     })
     .catch(console.error);
 });
