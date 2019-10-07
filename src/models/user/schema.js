@@ -9,6 +9,7 @@ const user = mongoose.Schema ({
   username: {type: String, required: true, unique: true},
   password: {type: String, required: true},
   role: {type: String, default: 'user', enum: ['admin', 'user']},
+  note: {type: Map, of: String, default: {}},
 });
 
 const capabilities = {
@@ -25,6 +26,7 @@ user.pre('save', async function () {
 user.statics.authenticateToken = function (token) {
   try {
     let parsedToken = jwt.verify(token, SECRET);
+    console.log(parsedToken);
     let query = { _id: parsedToken.id };
     return this.findOne(query);
   } catch (error) { throw new Error('Invalid Token'); }
@@ -54,5 +56,9 @@ user.methods.comparePassword = function (password) {
 user.methods.can = function (capability) {
   return capabilities[this.role].includes(capability);
 };
+
+user.set('pokeData.pokemonNumber', '');
+
+user.get('pokeData.pokemonNumber');
 
 module.exports = mongoose.model('user', user);

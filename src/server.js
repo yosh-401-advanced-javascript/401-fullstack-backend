@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require('express');
+const cookieParser = require('cookie-parser');
 
 const cors = require('cors');
 const morgan = require('morgan');
@@ -11,13 +12,15 @@ const errorHandler = require('./middleware/500');
 const notFound = require('./middleware/404');
 
 
+
 const authRouter = require('./routes/auth');
-const pokemonRoutes = require('./routes/api/pokemon');
+const pokemonRoutes = require('./routes/poke-data');
 
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+app.use(cookieParser());
 
 app.use(authRouter);
 app.use(pokemonRoutes);

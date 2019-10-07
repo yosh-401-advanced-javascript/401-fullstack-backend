@@ -8,6 +8,7 @@ const auth = require('../middleware/auth');
 
 router.post('/signup',(request, response, next) => {
   let user = new User(request.body);
+  console.log(request.body);
   user.save()
     .then(user => {
       request.token = user.generateToken();
@@ -22,7 +23,11 @@ router.post('/signup',(request, response, next) => {
 router.post('/signin', auth(), (request, response, next) => {
   response.set('token', request.token);
   response.cookie('auth', request.token);
+  console.log('sddasdasdasdasdasdasd', request.user);
   response.send(request.token);
 });
+
+
+
 
 module.exports = router;

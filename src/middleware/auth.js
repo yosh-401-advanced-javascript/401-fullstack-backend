@@ -1,15 +1,19 @@
 'use strict';
 
-
-
 const User = require('../models/user/schema.js');
 
-module.exports = (capabilitiy) => {
+module.exports = (capability) => {
   return (request, response, next) => {
-
     try {
-      let [authType, authString] = request.headers.authorization.split(/\s+/);
-
+      console.log('schmoo', request.cookies.auth);
+      let authType;
+      let authString;
+      if (request.headers.authorization !== undefined) {
+        [authType, authString] = request.headers.authorization.split(/\s+/);
+      } else if (request.cookies.auth !== undefined) {
+        authType = 'bearer';
+        authString = request.cookies.auth;
+      }
       switch(authType.toLowerCase()){
       case 'basic':
         return _authBasic(authString);
@@ -40,7 +44,7 @@ module.exports = (capabilitiy) => {
     }
 
     function _authenticate(user) {
-      if (user && (!capabilitiy || user.can(capabilitiy))) {
+      if (user && (!capability || user.can(capability))) {
         request.user = user;
         request.token = user.generateToken();
         next();
@@ -48,7 +52,8 @@ module.exports = (capabilitiy) => {
         _authError();
       }
     }
-    function _authError() {
+    function _authError(error) {
+      console.error(error);
       next('Invalid User ID/Password');
     }
   };
